@@ -47,7 +47,13 @@ const App = () => {
         exact
         path="/movies/:id"
         render={(props) => {
-          return <Movie {...props} addToSavedList={addToSavedList} />;
+          return (
+            <Movie
+              {...props}
+              setMovieList={setMovieList}
+              addToSavedList={addToSavedList}
+            />
+          );
         }}
       />
       <Route
