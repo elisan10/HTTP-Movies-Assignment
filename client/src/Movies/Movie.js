@@ -7,7 +7,7 @@ function Movie(props) {
   const [movie, setMovie] = useState(null);
   const params = useParams();
 
-  console.log("This is props in Movie", props);
+  // console.log("This is movie in Movie", movie);
 
   const fetchMovie = (id) => {
     axios
@@ -29,12 +29,13 @@ function Movie(props) {
   }
 
   const editMovie = () => {
-    props.history.push(`api/update-movie/${params.id}`);
+    props.history.push(`/update-movie/${params.id}`);
   };
+
   return (
     <div className="save-wrapper">
-      <button onClick={editMovie}>Edit</button>
       <MovieCard movie={movie} />
+      <button onClick={editMovie}>Edit</button>
 
       <div className="save-button" onClick={saveMovie}>
         Save

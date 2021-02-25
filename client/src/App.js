@@ -13,7 +13,9 @@ const App = () => {
   const getMovieList = () => {
     axios
       .get("http://localhost:5000/api/movies")
-      .then((res) => setMovieList(res.data))
+      .then((res) => {
+        setMovieList(res.data);
+      })
       .catch((err) => console.log(err.response));
   };
 
@@ -23,29 +25,37 @@ const App = () => {
 
   useEffect(() => {
     getMovieList();
-  }, []);
+  }, [movieList]);
 
+  console.log({ movieList });
   return (
     <>
       <SavedList list={savedList} />
 
-      <Route exact path="/">
+      {/* <Route exact path="/">
         <MovieList movies={movieList} />
-      </Route>
-
-      {/* <Route path="/movies/:id">
-        <Movie addToSavedList={addToSavedList} />
       </Route> */}
       <Route
+        exact
+        path="/"
+        render={(props) => {
+          return <MovieList {...props} movies={movieList} />;
+        }}
+      />
+
+      <Route
+        exact
         path="/movies/:id"
         render={(props) => {
           return <Movie {...props} addToSavedList={addToSavedList} />;
         }}
       />
-
-      <Route path="/update-movie/:id">
-        <UpdateMovieForm />
-      </Route>
+      <Route
+        path="/update-movie/:id"
+        render={(props) => {
+          return <UpdateMovieForm {...props} setMovieList={setMovieList} />;
+        }}
+      />
     </>
   );
 };
